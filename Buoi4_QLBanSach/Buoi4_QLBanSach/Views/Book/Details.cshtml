@@ -1,0 +1,84 @@
+@model Buoi4_QLBanSach.Models.Book
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Chi tiết sách</h1>
+
+<div>
+    <hr />
+
+    <dl class="row">
+
+        <dt class="col-sm-2">Tên sách</dt>
+        <dd class="col-sm-10">@Model.Name</dd>
+
+        <dt class="col-sm-2">Giá</dt>
+        <dd class="col-sm-10">@Model.Price</dd>
+
+        <dt class="col-sm-2">Năm xuất bản</dt>
+        <dd class="col-sm-10">@Model.PublishedYear</dd>
+
+        <dt class="col-sm-2">Số trang</dt>
+        <dd class="col-sm-10">@Model.Pages</dd>
+
+        <dt class="col-sm-2">Ngôn ngữ</dt>
+        <dd class="col-sm-10">@Model.Language</dd>
+
+        <dt class="col-sm-2">Ảnh bìa</dt>
+        <dd class="col-sm-10">
+            @if (!string.IsNullOrEmpty(Model.ImageUrl))
+            {
+                <img src="@Model.ImageUrl"
+                     alt="@Model.Name"
+                     width="250" />
+            }
+            else
+            {
+                <span>Không có ảnh</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Ngày tạo</dt>
+        <dd class="col-sm-10">@Model.CreatedAt</dd>
+
+        <dt class="col-sm-2">Ngày cập nhật</dt>
+        <dd class="col-sm-10">@Model.UpdatedAt</dd>
+
+        <dt class="col-sm-2">Tác giả</dt>
+        <dd class="col-sm-10">
+            @if (Model.Authors.Any())
+            {
+                @string.Join(", ", Model.Authors.Select(a => a.Name))
+            }
+            else
+            {
+                <span>Chưa có tác giả</span>
+            }
+        </dd>
+
+        <dt class="col-sm-2">Thể loại</dt>
+        <dd class="col-sm-10">
+            @if (Model.Categories.Any())
+            {
+                @string.Join(", ", Model.Categories.Select(c => c.Name))
+            }
+            else
+            {
+                <span>Chưa có thể loại</span>
+            }
+        </dd>
+
+    </dl>
+</div>
+
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">
+        Edit
+    </a>
+
+    <a asp-action="Index" class="btn btn-secondary">
+        Back to List
+    </a>
+</div>
